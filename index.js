@@ -1,6 +1,8 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 morgan.token('body', function setToken(req, res){
@@ -100,6 +102,25 @@ app.post('/api/persons', (request, response) => {
     response.json(person)
 })
 
+app.put('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    //console.log(id)
+    const person = persons.find(x=> x.id === id)
+    const body = request.body
+    const personUpdate = {
+        name: body.name,
+        number: body.number,
+        id: body.id
+    }
+    if (person) {
+        persons = persons.map(x => x.id !== id ? x : personUpdate)
+        response.json(personUpdate)
+    }
+    else {
+        console.log("Not found")
+        response.status(404).send("Page Not Found")
+    }
+})
 const PORT = 3001
 
 app.listen(PORT, () => {
