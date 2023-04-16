@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
-const url = 'mongodb+srv://fullstack:Abc123@karendatabase.5dvtrdg.mongodb.net/app-phonebook?retryWrites=true&w=majority'
+//const url = 'mongodb+srv://fullstack:Abc123@karendatabase.5dvtrdg.mongodb.net/app-phonebook?retryWrites=true&w=majority'
 
-//const url = process.argv[2]
+const url = process.argv[2]
 mongoose.connect(url)
     .then(result => {
         console.log('connected to MongoDB');
